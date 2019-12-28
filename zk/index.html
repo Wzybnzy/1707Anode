@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var func = function () {
+        console.log(this)// 原来指的是window，改变之后10
+        console.log(arguments); //伪数组，有数组的长度，但是没有数组的方法
+        // es5伪数组转真正的数组 Array.prototype.slice.call(arguments)
+        // slice不会改变原数组  splice会改变原数组
+        return this.a + ',' + Array.prototype.slice.call(arguments);
+    }
+
+
+    var a = 10;
+    var obj = {
+        a: 20
+    }
+
+    //改变this指向   call  apply  bind
+
+    // call 改变this指向，参数只能一个一个传递
+    // apply 也可以改变this指向，参数必须数组
+    //    console.log( func.apply(a,[2,3]));
+
+    //bind 也可以改变this指向，但是它的返回值是一个函数。改变this指向不会立即调用。
+
+    // onClick={this.handleclick.bind(this)}
+
+    console.log(func.bind(obj, 2, 3)(4,5,6))
+    // console.log(func1.bind());
+
+</script>
+
+</html>
