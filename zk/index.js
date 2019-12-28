@@ -25,8 +25,28 @@ Function.prototype.myBind = function(ctx){
     }
     return func;
 }
-aa.myBind(obj,2,3)(4,5,6);
+// aa.myBind(obj,2,3)(4,5,6);
 
 // connect()()
 //  aa.myBind()  == func
 // Array.prototype.myBind
+
+
+var arr = [1,2,3,4,5];
+Array.prototype.myReduce = function(callback,initval){
+    console.log(callback);
+    console.log(initval);
+    console.log(this);
+    var startval = initval !== undefined ? initval : this[0]; //初始值
+    var startInd = initval !== undefined ? 0 :1;
+    for(var i = startInd; i < this.length;i++){
+        startval =  callback(startval,this[i])
+    }
+    return startval;
+
+}
+
+console.log(arr.myReduce((prev,cur)=> prev + cur));
+
+// arr.reduce();
+
