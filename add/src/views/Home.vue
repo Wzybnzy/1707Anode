@@ -9,6 +9,8 @@
       <!-- <Input placeh="请输入电话1" :value="phone" @input="phone = $event"/>     -->
       <!-- <Input placeh="请输入电话1" :value="phone" @input="changeInputPhone"/>     -->
      <button @click="add">添加</button>
+     <h1>{{name}}</h1>
+     <h2>{{name}}</h2>
   </div>
 </template>
 

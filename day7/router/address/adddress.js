@@ -54,6 +54,9 @@ router.get('/delete', async ctx => {
 
 router.post('/update',async ctx=>{
     let {id,name, phone, city, address, isdefault} = ctx.request.body;
+    let data = await query(`select * from address where isdefault=1`);
+    console.log(data,'&&&&&&&');
+    
     let res = await query(`update address set name='${name}',phone='${phone}',city='${city}',address='${address}',isdefault='${isdefault}' where id='${id}'`);
     if(res.affectedRows == 1){
         ctx.body = {

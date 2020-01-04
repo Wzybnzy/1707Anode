@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrapper">{{obj._name}}</div>
+    <button id="btn">改变</button>
+</body>
+<script>
+    // var obj = {
+    //     a:'123',b:456
+
+    // }
+    // obj.a = '1707A'
+    // console.log(obj);
+
+    // var obj = {
+    //     b:'周六'
+    // };
+
+
+    // 数据属性和访问器属性，就是属性的属性
+
+    //数据属性 obj.a = ''
+    // Object.defineProperty(obj,'a',{
+    //     value:'1707A',
+    //     writable:true, //是否可编辑,默认是false，不可编辑
+    //     enumerable:false, //默认值false,是否可枚举，可枚举的属性用for  in 可以循环出来
+    //     configurable:false //是否可配置，就是是否能通过delete 来删除属性，默认是false
+    // });
+    // obj.a = 123;
+    // delete obj.a;
+    // console.log(obj);
+    // for(var i in obj){
+    //     console.log(i,obj[i])
+    // }
+
+
+    //访问器属性  getter setter
+    
+
+    var obj = {
+        a:123,
+        _name:'&&&&&'
+    }
+    Object.defineProperty(obj,'name',{
+        get(){
+            // return '1707A'
+        },
+        set(val){
+            console.log(val,'&&&&&&&')
+            document.querySelector('#wrapper').innerHTML = val;
+        }
+    });
+    // console.log(obj.a)
+    
+    btn.onclick=function(){
+        obj.name = '最新的值';
+    }
+</script>
+</html>

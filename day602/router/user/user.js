@@ -71,6 +71,7 @@ router.post('/add', async ctx => {
 
 router.get('/delete',async ctx=>{
     let {id} = ctx.request.query;
+    console.log(id,'id&&&&&&&&&');
     //判断当前用户是否存在
     let data = await query(`select * from user1 where id='${id}'`);
     console.log(data);
