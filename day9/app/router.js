@@ -10,4 +10,10 @@ module.exports = app => {
 
   router.post('/login', controller.user.user.login);
   router.post('/registry', controller.user.user.registry);
+
+
+  //scores
+  //添加成绩
+  router.post('/scores/add',controller.scores.scores.add);
+  router.get('/scores/del',controller.scores.scores.del);
 };

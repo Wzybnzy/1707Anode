@@ -9,6 +9,8 @@ const createVid = {
     }
 }
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+
 class UserController extends Controller {
     async login() {
         let { ctx } = this;
@@ -22,25 +24,30 @@ class UserController extends Controller {
             return;
         }
 
-
-
         try {
             ctx.validate(createVid);
             //判断学号是否已经注册了，如果没有注册，需要先注册，如果注册过了，判断学号和密码是否一致
             // 获取数据库返回的值
             let data = await ctx.service.user.user.getuser(stu);
-            console.log(data, '^^^^^^^^^^^^^^^^^^^^')
+            // console.log(data, '^^^^^^^^^^^^^^^^^^^^')
             if (data.length == 0) { //没有查到
                 ctx.body = {
                     code: 2,
                     mes: '该用户没有注册过'
                 }
             } else { //注册过了
-                let res = await ctx.service.user.user.login(stu, pwd);
+
+                // const md5 = crypto.createHash('md5');
+                // md5.update(pwd);
+                // pwd = md5.digest('hex');
+
+                let res = await ctx.service.user.user.login(stu, ctx.helper.help(pwd));
                 console.log(res, '&&&&&&&&&&&&&&&&');
+                let token = jwt.sign({...res[0]},this.app.config.keys,{expiresIn:360});
                 if (res.length > 0) {
                     ctx.body = {
                         code: 1,
+                        token,
                         mes: '登录成功'
                     };
                 } else {
@@ -76,11 +83,11 @@ class UserController extends Controller {
             let data = await ctx.service.user.user.getuser(stu);
             if (data.length == 0) { //没有注册过
 
-                const md5 = crypto.createHash('md5');
-                md5.update(pwd);
-                pwd = md5.digest('hex');
+                // const md5 = crypto.createHash('md5');
+                // md5.update(pwd);
+                // pwd = md5.digest('hex');
                 
-                let res = await ctx.service.user.user.registry(name,pwd,stu);
+                let res = await ctx.service.user.user.registry(name,ctx.helper.help(pwd),stu);
                 if (res.affectedRows == 1) {
                     ctx.body = {
                         code: 1,
@@ -93,10 +100,11 @@ class UserController extends Controller {
                     }
                 }
             } else {
-                ctx.body = {
-                    code: 2,
-                    mes: '该用户已经注册过了'
-                }
+                // ctx.body = {
+                //     code: 2,
+                //     mes: '该用户已经注册过了'
+                // }
+                ctx.helper.ctxBody(ctx,{code:2,mes:'该用户已经注册过了'});
             }
         }
         catch (e) {
