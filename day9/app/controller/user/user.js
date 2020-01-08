@@ -43,7 +43,7 @@ class UserController extends Controller {
 
                 let res = await ctx.service.user.user.login(stu, ctx.helper.help(pwd));
                 console.log(res, '&&&&&&&&&&&&&&&&');
-                let token = jwt.sign({...res[0]},this.app.config.keys,{expiresIn:360});
+                let token = jwt.sign({...res[0]},this.app.config.keys,{expiresIn:'7h'});
                 if (res.length > 0) {
                     ctx.body = {
                         code: 1,

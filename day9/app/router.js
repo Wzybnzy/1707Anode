@@ -16,4 +16,7 @@ module.exports = app => {
   //添加成绩
   router.post('/scores/add',controller.scores.scores.add);
   router.get('/scores/del',controller.scores.scores.del);
+  router.post('/scores/update',controller.scores.scores.update);
+  router.get('/scores/list',controller.scores.scores.list);
+
 };

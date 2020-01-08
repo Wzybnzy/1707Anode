@@ -19,6 +19,18 @@ class ScoresService extends Service {
         let res = await this.app.mysql.query(sql);
         return res;
     }
+    async update(obj){
+      let {id,theory,skill,name} = obj;
+       console.log(name,id,skill,theory,'*******')
+        let sql = `update scores set name='${name}',skill='${skill}',theory='${theory}' where id=${id}`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
+    async list(search){
+        let sql = `select * from scores where name like '%${search}%'`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
 }
 
 module.exports = ScoresService;
