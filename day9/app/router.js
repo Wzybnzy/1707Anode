@@ -19,4 +19,8 @@ module.exports = app => {
   router.post('/scores/update',controller.scores.scores.update);
   router.get('/scores/list',controller.scores.scores.list);
 
+
+  //获取所有没有添加过的学生
+  router.get('/user/student',controller.user.user.student);
+
 };

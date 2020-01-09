@@ -4,17 +4,32 @@ const Controller = require('egg').Controller;
 class ScoresController extends Controller {
     async add() {
         let { ctx } = this;
-        let { name, theory, skill } = ctx.request.body;
+        let { name, theory, skill,stu } = ctx.request.body;
 
-        if (!name || !theory || !skill) {
+        if (!name || !theory || !skill || !stu) {
             ctx.body = {
                 code: 3,
                 mes: '缺少参数'
             }
             return;
         }
+
+        //判断当前学号是否存在
+
+        let users = await ctx.service.user.user.getuser(stu);
+
+        console.log(users);
+        if(users.length == 0){
+            ctx.body = {
+                code:2,
+                mes:'没有找到该用户'
+            }
+            return;
+        }
+
+
         //判断name是否已经添加过
-        let data = await ctx.service.scores.scores.getscores(name);
+        let data = await ctx.service.scores.scores.getscores(name,stu);
         if (data.length == 0) { //没有添加过
             let res = await ctx.service.scores.scores.add(ctx.request.body);
             ctx.body = res;

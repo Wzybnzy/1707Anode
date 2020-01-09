@@ -3,14 +3,14 @@
 const Service = require('egg').Service;
 
 class ScoresService extends Service {
-    async getscores(name) {
-        let sql = `select * from scores where name='${name}'`;
+    async getscores(name,stu) {
+        let sql = `select * from scores where name='${name}' and stu='${stu}'`;
         let res = await this.app.mysql.query(sql);
         return res;
     }
     async add(obj){
-        let {name,theory,skill} = obj;
-        let sql = `insert into scores (name,theory,skill) values ('${name}','${theory}','${skill}')`;
+        let {name,theory,skill,stu} = obj;
+        let sql = `insert into scores (name,theory,skill,stu) values ('${name}','${theory}','${skill}','${stu}')`;
         let res = await this.app.mysql.query(sql);
         return res;
     }

@@ -116,6 +116,12 @@ class UserController extends Controller {
 
 
     }
+
+    async student(){
+        let {ctx} = this;
+        let res = await ctx.service.user.user.student();
+        ctx.body = res;
+    }
 }
 
 module.exports = UserController;

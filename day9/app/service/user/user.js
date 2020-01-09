@@ -21,6 +21,14 @@ class UserService extends Service {
         return res;
 
     }
+
+    async student(){ 
+        //获取的是所有添加过的学生
+        let stus = `select stu from scores`;
+        let sql = `select * from user where stu not in (${stus})`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
 }
 
 module.exports = UserService;
