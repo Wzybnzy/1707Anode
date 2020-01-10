@@ -12,8 +12,9 @@ class Login extends React.Component {
                 let res = await axios.post('/login',{stu,pwd});
                 console.log(res);
                 if(res.data.code == 1){
-                    window.localStorage.token = res.data.token;
-                    window.localStorage.uid = res.data.uid;
+                     window.localStorage.setItem('users',JSON.stringify(res.data.data))
+                    // window.localStorage.token = res.data.token;
+                    // window.localStorage.uid = res.data.uid;
                     this.props.history.push('/index');
                 } else {
                     message.info(res.data.mes,3)

@@ -45,3 +45,20 @@
   width: 300px;
   margin: 0 auto !important;
 }
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+.header>div{
+  display: flex;
+}
+
+.score_header{
+  display: flex;
+  justify-content: space-between;
+}
+.score_header>div{
+  display: flex;
+}
