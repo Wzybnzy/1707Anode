@@ -13,6 +13,11 @@ class UserService extends Service {
         let res = await this.app.mysql.query(sql);
         return res;
     }
+    async login(name,pwd){
+        let sql = `select * from user where name='${name}' and pwd='${pwd}'`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
 }
 
 module.exports = UserService;

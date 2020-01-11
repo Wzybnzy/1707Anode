@@ -10,4 +10,16 @@ module.exports = app => {
 
   //注册
   router.post('/registry',controller.user.user.registry);;
+  //登录
+  router.post('/login',controller.user.user.login);
+
+  //知识库
+
+  //添加知识库
+  router.post('/know/add',controller.know.know.add);
+  //修改知识库
+  router.post('/know/update',controller.know.know.update);
+
+  //删除知识库
+  router.get('/know/del',controller.know.know.delete);
 };
