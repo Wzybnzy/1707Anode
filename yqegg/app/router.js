@@ -22,4 +22,15 @@ module.exports = app => {
 
   //删除知识库
   router.get('/know/del',controller.know.know.delete);
+  
+  //获取知识库的列表
+  router.get('/know/list',controller.know.know.list);
+
+
+
+  //文档
+
+  //新建文档
+  router.post('/file/add',controller.file.file.add);;
+
 };

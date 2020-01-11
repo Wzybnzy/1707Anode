@@ -21,6 +21,11 @@ class KnowService extends Service {
         let res = await this.app.mysql.query(sql);
         return res;
     }
+    async list(uid){
+        let sql = `select * from know where uid=${uid}`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
 }
 
 module.exports = KnowService;
