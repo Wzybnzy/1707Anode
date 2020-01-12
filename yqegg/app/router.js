@@ -27,10 +27,25 @@ module.exports = app => {
   router.get('/know/list',controller.know.know.list);
 
 
-
   //文档
 
   //新建文档
   router.post('/file/add',controller.file.file.add);;
+  
+  // 修改文档
+  router.post('/file/update',controller.file.file.update);
 
+  //删除
+  router.get('/file/del',controller.file.file.delete);
+
+  //获取文档列表
+  router.get('/file/list',controller.file.file.list);
+
+  //搜索文档
+  router.get('/file/search',controller.file.file.search);
+
+  //文档详情
+  router.get('/file/detail',controller.file.file.detail);
+
+  
 };
