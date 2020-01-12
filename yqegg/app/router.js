@@ -48,10 +48,10 @@ module.exports = app => {
   router.get('/file/detail',controller.file.file.detail);
 
   //关注作者
-  router.post('/user/follow',controller.user.user.follow);
+  router.post('/follow/followadd',controller.follow.follow.follow);
   //获取所有关注过的人
-  router.get('/user/followlist',controller.user.user.followlist);
+  router.get('/follow/followlist',controller.follow.follow.followlist);
 
   //取消关注
-  router.get('/user/followdel',controller.user.user.followdel);
+  router.get('/follow/followdel',controller.follow.follow.followdel);
 };
