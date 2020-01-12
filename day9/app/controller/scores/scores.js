@@ -87,7 +87,10 @@ class ScoresController extends Controller {
         let { ctx } = this;
         let {search = ''} = ctx.query;
         let res = await ctx.service.scores.scores.list(search);
-        ctx.body = res;
+        ctx.body = {
+            code:1,
+            data:res
+        };
     }
 }
 

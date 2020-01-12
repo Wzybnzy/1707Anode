@@ -43,14 +43,16 @@ class UserController extends Controller {
 
                 let res = await ctx.service.user.user.login(stu, ctx.helper.help(pwd));
                 console.log(res, '&&&&&&&&&&&&&&&&');
-                let token = jwt.sign({...res[0]},this.app.config.keys,{expiresIn:'7h'});
+                let token = jwt.sign({ ...res[0] }, this.app.config.keys, { expiresIn: '7h' });
                 if (res.length > 0) {
                     ctx.body = {
                         code: 1,
-                        token,
-                        uid:res[0].id,
-                        name:res[0].name,
-                        role:res[0].role,
+                        data: {
+                            token,
+                            uid: res[0].id,
+                            name: res[0].name,
+                            role: res[0].role,
+                        },
                         mes: '登录成功'
                     };
                 } else {
@@ -71,7 +73,7 @@ class UserController extends Controller {
     }
     async registry() { //注册
         let { ctx } = this;
-        let { name, stu, pwd,role } = ctx.request.body;
+        let { name, stu, pwd, role } = ctx.request.body;
         if (!name || !stu || !pwd || !role) {
             ctx.body = {
                 code: 3,
@@ -89,8 +91,8 @@ class UserController extends Controller {
                 // const md5 = crypto.createHash('md5');
                 // md5.update(pwd);
                 // pwd = md5.digest('hex');
-                
-                let res = await ctx.service.user.user.registry(name,ctx.helper.help(pwd),stu,role);
+
+                let res = await ctx.service.user.user.registry(name, ctx.helper.help(pwd), stu, role);
                 if (res.affectedRows == 1) {
                     ctx.body = {
                         code: 1,
@@ -107,7 +109,7 @@ class UserController extends Controller {
                 //     code: 2,
                 //     mes: '该用户已经注册过了'
                 // }
-                ctx.helper.ctxBody(ctx,{code:2,mes:'该用户已经注册过了'});
+                ctx.helper.ctxBody(ctx, { code: 2, mes: '该用户已经注册过了' });
             }
         }
         catch (e) {
@@ -120,18 +122,25 @@ class UserController extends Controller {
 
     }
 
-    async student(){
-        let {ctx} = this;
+    async student() {
+        let { ctx } = this;
         let res = await ctx.service.user.user.student();
-        ctx.body = res;
+        ctx.body = {
+            code:1,
+            data:res
+        };
     }
-    async menu(){
-        let {ctx} = this;
-        let {role_id} = ctx.query;
+    async menu() {
+        let { ctx } = this;
+        let { role_id } = ctx.query;
         // console.log(object)
-        let role_name = await ctx.service.user.user.rolename(role_id); 
+        let role_name = await ctx.service.user.user.rolename(role_id);
         let res = await ctx.service.user.user.menu(role_id);
-        ctx.body = res;
+        ctx.body = {
+            code: 1,
+            data: res,
+            name: role_name[0].role_name
+        };
     }
 }
 
