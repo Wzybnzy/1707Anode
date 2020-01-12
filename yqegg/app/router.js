@@ -47,5 +47,11 @@ module.exports = app => {
   //文档详情
   router.get('/file/detail',controller.file.file.detail);
 
-  
+  //关注作者
+  router.post('/user/follow',controller.user.user.follow);
+  //获取所有关注过的人
+  router.get('/user/followlist',controller.user.user.followlist);
+
+  //取消关注
+  router.get('/user/followdel',controller.user.user.followdel);
 };

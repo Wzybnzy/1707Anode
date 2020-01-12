@@ -21,7 +21,7 @@ module.exports = ()=>{
                 await next();
             }
             catch(e){
-                // console.log(e,'&&&&&&&&&&&&&&&&&&&&&&&');
+                console.log(e,'&&&&&&&&&&&&&&&&&&&&&&&');
                 ctx.body = {
                     code:5,
                     mes:'token校验失败'
