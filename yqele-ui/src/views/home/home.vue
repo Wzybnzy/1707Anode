@@ -11,7 +11,7 @@
         </div>
         <div class="headerright">
           <div @click="showmenu">+</div>
-          <div>欢迎您：{{ name }}</div>
+          <div>欢迎您：{{ name }}!</div>
           <span>退出</span>
         </div>
         <ul :class="['headermenu', !flag ? 'none' : '']">
@@ -28,7 +28,7 @@
 export default {
   data() {
     return {
-      name: "",
+      name: JSON.parse(window.localStorage.user).name,
       input: "",
       flag: false
     };
@@ -53,6 +53,7 @@ export default {
   right: 100px;
   top: 60px;
   background: #ccc;
+  z-index: 999;
 }
 .none {
   display: none;

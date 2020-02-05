@@ -38,8 +38,8 @@ export default {
       if(res.data.code == 1){
         //登录成功
         this.$router.push({name:'file'});
-        //存用户信息
-        window.localStorage.user=JSON.stringify(res.data.data);
+        //存用户信息 res.data.data={uid:'',token:'',name:''}
+        window.localStorage.user=JSON.stringify({...res.data.data,name});
       } else {
          this.show = true;
          this.$message(res.data.mes);

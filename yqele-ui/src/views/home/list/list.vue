@@ -61,5 +61,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.el-row{
+  height: 100%;
+}
+.el-col-12{
+  width: 100%;
+  height: 100%;;
+}
+.el-col-12>ul{
+  height: 100%;
+}
 </style>
