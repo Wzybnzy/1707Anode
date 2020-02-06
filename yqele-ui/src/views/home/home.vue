@@ -15,9 +15,20 @@
           <span>退出</span>
         </div>
         <ul :class="['headermenu', !flag ? 'none' : '']">
-          <li>新建文档</li>
+          <li @click="showfile">新建文档</li>
           <li @click="goToknow">新建知识库</li>
         </ul>
+        <el-dialog
+          title="知识库列表"
+          :visible.sync="dialogVisible"
+          width="30%"
+          :before-close="handleClose"
+        >
+          <div 
+          v-for="(item,index) in list"
+          @click="goToFile(item.id,item.isshow,item.uid)"
+          :key="index">{{item.know_name}}</div>
+        </el-dialog>
       </el-header>
       <router-view />
     </el-container>
@@ -25,12 +36,15 @@
 </template>
 
 <script>
+import {knowlist} from '@/api/api'
 export default {
   data() {
     return {
       name: JSON.parse(window.localStorage.user).name,
       input: "",
-      flag: false
+      flag: false,
+      dialogVisible: false,
+      list:[]
     };
   },
   methods: {
@@ -42,6 +56,28 @@ export default {
       //点击新增知识库
       this.flag = false;
       this.$router.push({ name: "addknow" });
+    },
+   async showfile() {
+     //新建文档
+      this.dialogVisible= true;
+      let res = await knowlist({uid:JSON.parse(window.localStorage.user).uid});
+      console.log(res);
+      if(res.data.code == 1){
+        this.list = res.data.data;
+      }
+    },
+    goToFile(kid,isshow,uid){
+      //去新建文档
+      this.flag = false;  // 隐藏新建
+      this.dialogVisible= false; //隐藏弹框
+      this.$router.push({name:'addfile',params:{kid,isshow,uid}})
+    },
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     }
   }
 };
