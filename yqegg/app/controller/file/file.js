@@ -76,6 +76,7 @@ class FileController extends Controller {
     async list() {
         let { ctx } = this;
         let { uid } = ctx.query;
+        console.log(uid,'uid***************')
         if (!uid) {
             ctx.body = {
                 code: 3,
@@ -84,6 +85,7 @@ class FileController extends Controller {
             return;
         }
         let res = await ctx.service.file.file.list(uid);
+        // console.log(res,'res************');
         if (res.length !== 0) {
             ctx.body = {
                 code: 1,

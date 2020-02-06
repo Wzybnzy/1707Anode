@@ -40,6 +40,7 @@ class UserController extends Controller {
     }
   }
   async login(){
+      console.log('login');
       let {ctx} = this;
       let {name,pwd} = ctx.request.body;
       if(!name || !pwd){
