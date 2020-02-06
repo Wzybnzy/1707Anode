@@ -6,7 +6,7 @@
           <h3>语雀</h3>
           <div v-if="$route.meta.show">
             <el-input v-model="input" placeholder="请输入搜索内容"></el-input>
-            <el-button type="primary">搜索</el-button>
+            <el-button type="primary" @click="goToSearch">搜索</el-button>
           </div>
         </div>
         <div class="headerright">
@@ -70,7 +70,7 @@ export default {
       //去新建文档
       this.flag = false;  // 隐藏新建
       this.dialogVisible= false; //隐藏弹框
-      this.$router.push({name:'addfile',params:{kid,isshow,uid}})
+      this.$router.push({name:'addfile',params:{kid,isshow,uid,flag:true}})
     },
     handleClose(done) {
       this.$confirm("确认关闭？")
@@ -78,6 +78,10 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    goToSearch(){
+      //去搜索
+      this.$router.push({name:'search',params:{search:this.input}})
     }
   }
 };

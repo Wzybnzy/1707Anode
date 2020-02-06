@@ -37,7 +37,7 @@ class FileService extends Service {
     return res;
   }
   async search(search) {
-    let sql = `select * from file where isshow='1' and file_name like '%${search}%' or file_info like '%${search}%'`;
+    let sql = `select * from file where  file_name like '%${search}%' or file_info like '%${search}%' and isshow='1'`;
     let res = await this.app.mysql.query(sql);
     return res;
   }
