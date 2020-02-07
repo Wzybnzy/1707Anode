@@ -43,4 +43,11 @@ export const followlist  = (params)=> httpAxios.get('/api/follow/followlist',{pa
 export const followdel  = (params)=> httpAxios.get('/api/follow/followdel',{params});
 
 
+// 收藏
+//添加收藏
+export const colladd  = (params)=> httpAxios.post('/api/coll/add',params);
+//获取收藏列表
+export const colllist  = (params)=> httpAxios.get('/api/coll/list',{params});
 
+//取消收藏
+export const colldel  = (params)=> httpAxios.get('/api/coll/delt',{params});

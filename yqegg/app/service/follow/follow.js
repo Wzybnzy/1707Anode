@@ -16,7 +16,9 @@ class FollowService extends Service {
     async followlist(uid){
         let follow_id = `select follow_id from follow where user_id=${uid}`;
         let sql= `select * from user where id in (${follow_id})`;
+        console.log(sql,'*************')
         let res = await this.app.mysql.query(sql);
+        console.log(res,'IIIIIIIIIIIIIIIIIII')
         return res;
     }
     async followdel(user_id,follow_id){

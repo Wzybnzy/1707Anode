@@ -52,7 +52,6 @@ class CollectionController extends Controller {
               mes:'失败'
           }
       }
-      ctx.body = res;
   }
 
   async del(){

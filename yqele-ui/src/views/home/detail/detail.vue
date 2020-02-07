@@ -9,7 +9,7 @@
     </div>
     <div class="right">
       <button v-if="uid !== followid" @click="goToFollow">{{flag ? '已关注' :'关注作者'}}</button>
-      <button>收藏文档</button>
+      <button @click="goToColl">收藏文档</button>
       <div>
         <h3>{{list[ind] && list[ind].file_name}}</h3>
         <p>{{list[ind] && list[ind].file_info}}</p>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { filedetail,followadd } from "@/api/api.js";
+import { filedetail,followadd,colladd } from "@/api/api.js";
 export default {
   data() {
     return {
@@ -27,12 +27,14 @@ export default {
       ind:0,
       followid:null,
       flag:false,
+      fileid:null,
       uid:JSON.parse(window.localStorage.user).uid
     };
   },
   async created() {
     let { uid, kid,id } = this.$route.params; //点击的那一条上边的用户uid和kid
     this.followid = uid;  //文档作者的id
+    this.fileid = id; //文章id
     let res = await filedetail({
       uid,
       know_id: kid
@@ -57,6 +59,14 @@ export default {
       if(res.data.code == 1){
         this.flag = true;
       }
+    },
+    async goToColl(){
+      //点击收藏
+      let res = await colladd({
+        uid:this.uid,
+        file_id:this.fileid
+      });
+      console.log(res);
     }
   }
 };

@@ -47,7 +47,7 @@ class FollowController extends Controller {
           return;
         }
         let res = await ctx.service.follow.follow.followlist(uid);
-        if(res.affectedRows == 1){
+        if(res.length > 0){
             ctx.body = {
                 code:1,
                 data:res

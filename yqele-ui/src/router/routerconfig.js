@@ -45,6 +45,14 @@ const routes = [
                             show: true
                         },
                         component: () => import('@/views/home/list/follow/follow.vue')
+                    },
+                    {
+                        path: 'coll',
+                        name: 'coll',
+                        meta: {
+                            show: true
+                        },
+                        component: () => import('@/views/home/list/coll/coll.vue')
                     }
                 ]
             },
