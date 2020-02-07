@@ -42,6 +42,11 @@ export default {
                 txt:'知识库',
                 icon:'el-icon-document',
                 url:'know'
+            },
+             {
+                txt:'关注',
+                icon:'el-icon-document',
+                url:'follow'
             }
         ]
     };

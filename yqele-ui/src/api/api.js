@@ -33,4 +33,14 @@ export const filesearch  = (params)=> httpAxios.get('/api/file/search',{params})
 export const filedetail  = (params)=> httpAxios.get('/api/file/detail',{params});
 
 
+//关注
+
+//添加关注
+export const followadd  = (params)=> httpAxios.post('/api/follow/followadd',params);
+//获取所有的关注
+export const followlist  = (params)=> httpAxios.get('/api/follow/followlist',{params});
+//取消关注
+export const followdel  = (params)=> httpAxios.get('/api/follow/followdel',{params});
+
+
 

@@ -1,28 +1,79 @@
 <template>
-  <div>
-      详情页
+  <div class="detail">
+    <div class="left">
+      <ul>
+        <li v-for="(item,index) in list" :key="index" @click="changeTab(index)">
+          {{item.file_name}}
+        </li>
+      </ul>
+    </div>
+    <div class="right">
+      <button v-if="uid !== followid" @click="goToFollow">{{flag ? '已关注' :'关注作者'}}</button>
+      <button>收藏文档</button>
+      <div>
+        <h3>{{list[ind] && list[ind].file_name}}</h3>
+        <p>{{list[ind] && list[ind].file_info}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {filedetail} from '@/api/api.js'
+import { filedetail,followadd } from "@/api/api.js";
 export default {
-  data(){
+  data() {
     return {
-      list:[]
-    }
+      list: [],
+      ind:0,
+      followid:null,
+      flag:false,
+      uid:JSON.parse(window.localStorage.user).uid
+    };
   },
   async created() {
-    let {uid,kid} = this.$route.params;
+    let { uid, kid,id } = this.$route.params; //点击的那一条上边的用户uid和kid
+    this.followid = uid;  //文档作者的id
     let res = await filedetail({
       uid,
-      know_id:kid
+      know_id: kid
     });
     console.log(res);
+    if (res.data.code == 1) {
+      this.list = res.data.data;
+      this.ind = this.list.findIndex(item => item.id == id)
+    }
   },
-}
+  methods:{
+    changeTab(ind){
+      this.ind = ind;
+    },
+   async goToFollow(){
+      //点击关注
+      let res = await followadd({
+        user_id: this.uid,
+        follow_id: this.followid
+      });
+      console.log(res);
+      if(res.data.code == 1){
+        this.flag = true;
+      }
+    }
+  }
+};
 </script>
 
-<style>
-
+<style scoped>
+.detail {
+  display: flex;
+  height: 100%;
+}
+.left {
+  border-right: 1px solid #ccc;
+  height: 100%;
+  width: 200px;
+}
+.right {
+  height: 100%;
+  flex: 1;
+}
 </style>
