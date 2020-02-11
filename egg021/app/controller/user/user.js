@@ -52,14 +52,14 @@ class UserController extends Controller {
         } catch (e) {
             console.log(e, '********');
             ctx.body = {
-                code:4,
-                mes:'参数类型校验失败'
+                code: 4,
+                mes: '参数类型校验失败'
             }
         }
     }
-    async login(){
-        let {ctx} = this;
-        let {name,pwd} = ctx.request.body;
+    async login() {
+        let { ctx } = this;
+        let { name, pwd } = ctx.request.body;
         if (!name || !pwd) {
             ctx.body = {
                 code: 3,
@@ -68,50 +68,79 @@ class UserController extends Controller {
             return;
         }
 
-        try{
+        try {
             ctx.validate(createRule);
             //先判断用户名是否存在
             let user = await ctx.service.user.user.getuser(name);
-            if(user.length == 0){
+            if (user.length == 0) {
                 ctx.body = {
-                    code:2,
-                    mes:'该用户还没有注册，请先注册'
+                    code: 2,
+                    mes: '该用户还没有注册，请先注册'
                 }
                 return;
             }
 
             //登录
-            let res = await ctx.service.user.user.login(name,ctx.helper.help(pwd));
-            const token = jwt.sign({...res[0]},this.app.config.keys,{expiresIn:'10h'});
-            if(res.length > 0){
+            let res = await ctx.service.user.user.login(name, ctx.helper.help(pwd));
+
+            //后端完全依赖这个token来判断当前用户是否登录的
+            const token = jwt.sign({ ...res[0] }, this.app.config.keys, { expiresIn: '10h' });
+            if (res.length > 0) {
                 ctx.body = {
-                    code:1,
+                    code: 1,
                     token,
-                    uid:res[0].id,
-                    mes:'登录成功'
+                    uid: res[0].id,
+                    mes: '登录成功'
                 }
-            } else{
+            } else {
                 ctx.body = {
-                    code:0,
-                    mes:'登录失败'
+                    code: 0,
+                    mes: '登录失败'
                 }
             }
         }
-        catch(e){
+        catch (e) {
             ctx.body = {
-                code:4,
-                mes:'参数类型校验失败'
+                code: 4,
+                mes: '参数类型校验失败'
             }
         }
     }
 
-    async getuserinfo(){
-        let {ctx} = this;
-        let {uid} = ctx.query;
-        
+    async getuserinfo() {
+        let { ctx } = this;
+        let { uid } = ctx.query;
+
         //通过用户id来获取角色
         let res = await ctx.service.user.user.getuserinfo(uid);
-        ctx.body = res;
+        ctx.body = {
+            code: 1,
+            name:res[0].r_name
+        };
+    }
+    async getlist() {
+        let { ctx } = this;
+        let { uid } = ctx.query; //用户的id
+        if (!uid) {
+            ctx.body = {
+                code: 3,
+                mes: '缺少参数'
+            }
+            return;
+        }
+        let res = await ctx.service.user.user.getlist(uid);
+        if (res.length > 0) {
+            ctx.body = {
+                code: 1,
+                data: res
+            };
+        } else {
+            ctx.body = {
+                code:0,
+                mes:'失败'
+            }
+        }
+
     }
 }
 

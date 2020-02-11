@@ -25,6 +25,13 @@ class UserService extends Service {
         let res = await this.app.mysql.query(sql);
         return res;
     }
+    async getlist(uid){
+        let rid = `select rid from user_role where uid=${uid}`;
+        let pid = `select pid from role_power where rid in (${rid})`;
+        let sql = `select * from power where id in (${pid})`;
+        let res = await this.app.mysql.query(sql);
+        return res;
+    }
 }
 
 module.exports = UserService;
