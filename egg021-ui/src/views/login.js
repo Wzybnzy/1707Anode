@@ -26,6 +26,18 @@ export default class Login extends Component {
         let res =await  axios.post('/login',{
             name,pwd
         });
+        if(res.data.code == 1){
+            //登录成功
+            window.localStorage.user = JSON.stringify({token:res.data.token,uid:res.data.uid,name});
+            //跳转首页
+            // this.props.history.push({
+            //     pathname:'/home',
+            //     params:{
+            //         name:name
+            //     }
+            // });
+            this.props.history.push('/home');
+        }
         console.log(res,'**************');
     }
     

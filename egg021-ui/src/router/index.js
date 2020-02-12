@@ -4,15 +4,20 @@ import Login from '../views/login';
 import Registry from '../views/registry';
 import Home from '../views/home/home';
 
+import routes from './routerconfig'
+import RouterView from './routerview'
 
-function RootRouter(){
-    return <BrowserRouter>
-        <Switch>
+function RootRouter(){//一级路由
+    return <BrowserRouter> 
+    <RouterView routes={routes}/>
+        {/* <Switch>
             <Route path="/login" component={Login}/>
-            <Route path="/registry" component={Registry}/>
+            <Route path="/registry" render={(props)=>{
+                
+            }}/>
             <Route path="/home" component={Home}/>
             <Redirect path="/" to="/login"/>
-        </Switch>
+        </Switch> */}
     </BrowserRouter>
 }
 
