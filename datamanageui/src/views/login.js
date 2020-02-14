@@ -18,9 +18,10 @@ export default class Login extends Component {
     handleChange(e){
         let name = e.target.name;
         this.setState({
-            [name]:e.target.value
+           [name]:e.target.value
         })
     }
+ 
    async handleSubmit(){
         console.log('点击登录');
         let {phone,pwd} = this.state;
